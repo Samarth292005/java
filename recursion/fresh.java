@@ -77,4 +77,21 @@ class Solution {
         return ans;
     }
 }
+public List<Integer> findDisappearedNumbers(int[] nums) {
+        ArrayList<Integer> list = new ArrayList<>();
+        int arr[] = new int[nums.length+1];
+        arr[0] = 0;
+        for(int i=0;i<nums.length;i++)
+        {
+            arr[nums[i]] = nums[i]; 
+        }
+        for(int i=1;i<nums.length+1;i++)
+        {
+            if(arr[i] == 0)
+            {
+                list.add(i);
+            }
+        }
+        return list;
+    }
 }
