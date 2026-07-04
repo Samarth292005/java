@@ -137,4 +137,89 @@ public boolean findSafeWalk(List<List<Integer>> grid, int health) {
 
         return dist[m - 1][n - 1] < health;
     }
+
+public int minScore(int n, int[][] roads) {
+
+        List<int[]>[] graph = new ArrayList[n + 1];
+
+        for (int i = 1; i <= n; i++)
+            graph[i] = new ArrayList<>();
+
+        for (int[] r : roads) {
+            graph[r[0]].add(new int[]{r[1], r[2]});
+            graph[r[1]].add(new int[]{r[0], r[2]});
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        boolean[] vis = new boolean[n + 1];
+
+        q.offer(1);
+        vis[1] = true;
+
+        int ans = Integer.MAX_VALUE;
+
+        while (!q.isEmpty()) {
+
+            int node = q.poll();
+
+            for (int[] nei : graph[node]) {
+
+                ans = Math.min(ans, nei[1]);
+
+                if (!vis[nei[0]]) {
+                    vis[nei[0]] = true;
+                    q.offer(nei[0]);
+                }
+            }
+        }
+
+        return ans;
+    }
+
+class Solution {
+
+    class DSU {
+
+        int[] parent;
+
+        DSU(int n) {
+            parent = new int[n + 1];
+            for (int i = 1; i <= n; i++)
+                parent[i] = i;
+        }
+
+        int find(int x) {
+            if (parent[x] != x)
+                parent[x] = find(parent[x]);
+            return parent[x];
+        }
+
+        void union(int a, int b) {
+            parent[find(a)] = find(b);
+        }
+    }
+
+    public int minScore(int n, int[][] roads) {
+
+        DSU dsu = new DSU(n);
+
+        for (int[] r : roads)
+            dsu.union(r[0], r[1]);
+
+        int root = dsu.find(1);
+
+        int ans = Integer.MAX_VALUE;
+
+        for (int[] r : roads) {
+            if (dsu.find(r[0]) == root)
+                ans = Math.min(ans, r[2]);
+        }
+
+        return ans;
+    }
+}
+
+
+
+
 }
