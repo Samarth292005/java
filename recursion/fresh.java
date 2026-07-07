@@ -300,6 +300,35 @@ class Solution {
 
         return ans.reverse().toString();
     }
+    class Solution {
+    public long sumAndMultiply(int n) {
+        if (n == 0) return 0;
+
+        int temp = n;
+        int divisor = 1;
+
+        while (temp >= 10) {
+            temp /= 10;
+            divisor *= 10;
+        }
+
+        long x = 0;
+        long sum = 0;
+
+        while (divisor > 0) {
+            int digit = n / divisor;
+            n %= divisor;
+            divisor /= 10;
+
+            if (digit != 0) {
+                x = x * 10 + digit;
+                sum += digit;
+            }
+        }
+
+        return x * sum;
+    }
+}
 }
 
 }
