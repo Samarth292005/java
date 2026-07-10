@@ -370,5 +370,24 @@ class Solution {
         return ans;
     }
 }
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int c=0;
+        int k = s.length() - 1;
+        while(s.charAt(k) == ' ')
+        {
+            k--;
+        }
+     for(int i=k;i>=0;i--)
+     {
+        if(s.charAt(i)==' ')
+        {
+            return c;
+        }
+        c++;
+     }
+     return c;
+    }
+}
 
 }
