@@ -674,5 +674,36 @@ class Solution {
         return sb.toString();
     }
 }
+class Solution {
+    public String smallestSubsequence(String s) {
+        int[] count = new int[26];
+        boolean[] vis = new boolean[26];
+
+        for (char c : s.toCharArray())
+            count[c - 'a']++;
+
+        char[] stack = new char[26];
+        int top = -1;
+
+        for (char c : s.toCharArray()) {
+            count[c - 'a']--;
+
+            if (vis[c - 'a']) continue;
+
+            while (top >= 0 &&
+                   stack[top] > c &&
+                   count[stack[top] - 'a'] > 0) {
+
+                vis[stack[top] - 'a'] = false;
+                top--;
+            }
+
+            stack[++top] = c;
+            vis[c - 'a'] = true;
+        }
+
+        return new String(stack, 0, top + 1);
+    }
+}
                         }
 }
