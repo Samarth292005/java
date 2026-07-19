@@ -608,5 +608,41 @@ class LRUCache {
         map.put(key, node);
     }
 }
+import java.util.*;
+
+class Solution {
+    public String smallestSubsequence(String s) {
+        int[] count = new int[26];
+        boolean[] inStack = new boolean[26];
+
+        for (char c : s.toCharArray()) {
+            count[c - 'a']++;
+        }
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char c : s.toCharArray()) {
+            count[c - 'a']--;
+
+            if (inStack[c - 'a']) continue;
+
+            while (!stack.isEmpty()
+                    && stack.peekLast() > c
+                    && count[stack.peekLast() - 'a'] > 0) {
+                inStack[stack.removeLast() - 'a'] = false;
+            }
+
+            stack.addLast(c);
+            inStack[c - 'a'] = true;
+        }
+
+        StringBuilder ans = new StringBuilder();
+        while (!stack.isEmpty()) {
+            ans.append(stack.removeFirst());
+        }
+
+        return ans.toString();
+    }
+}
                         }
 }
