@@ -1011,5 +1011,10 @@ class Solution {
         return dp[i][j] = Math.max(left, right);
     }
 }
+class Solution {
+    public boolean stoneGame(int[] piles) {
+        return true;
+    }
+}
                         }
 }
