@@ -1015,6 +1015,40 @@ class Solution {
     public boolean stoneGame(int[] piles) {
         return true;
     }
+    class Solution {
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        ArrayList<Integer> list = new ArrayList<>();
+       for(int i=left;i<=right;i++)
+       {
+        int num = i;
+        int num2 = i;
+        int n = 0;
+        while(num != 0)
+        {
+          int k = num % 10;
+          if(k==0)
+          {
+            n =1;
+            break;
+          }
+          if(num2 % k != 0)
+          {
+            n = 1;
+            break;
+          }
+          num = num/10;
+        }
+        if(n==0)
+        {
+            list.add(i);
+         
+        }
+        
+       }
+       return list;
+     
+    }
+}
 }
                         }
 }
