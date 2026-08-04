@@ -1049,6 +1049,21 @@ class Solution {
      
     }
 }
+    class Solution {
+    public int arrangeCoins(int n) {
+        int rem = n;
+        int i = 1;
+        int c = 0;
+
+        while (rem >= i) {
+            rem -= i;
+            c++;
+            i++;
+        }
+
+        return c;
+    }
+}
 }
                         }
 }
