@@ -1118,6 +1118,28 @@ class Solution {
         return ans;
     }
 }
+    class Solution {
+    public int smallestNumber(int n, int t) {
+       int num = n;
+        int mul = 1;
+        while(true){
+            int kk = num;
+            while(kk!=0)
+            {
+                int m = kk % 10;
+                mul = m * mul;
+                kk = kk / 10;
+            }
+            if(mul % t==0)
+            {
+                break;
+            }
+            mul = 1;
+            num = num + 1;
+        }
+        return num;
+    }
+}
 }
                         }
 }
