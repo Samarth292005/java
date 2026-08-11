@@ -1220,5 +1220,33 @@ class Solution {
     }
 }
 }
+class Solution {
+    public int missingInteger(int[] nums) {
+        int sum = nums[0];
+
+        // Find sequential prefix sum
+        int i = 1;
+        while (i < nums.length && nums[i] == nums[i - 1] + 1) {
+            sum += nums[i];
+            i++;
+        }
+
+        // Find smallest integer >= sum that is not in nums
+        while (contains(sum, nums)) {
+            sum++;
+        }
+
+        return sum;
+    }
+
+    public boolean contains(int n, int[] nums) {
+        for (int num : nums) {
+            if (num == n) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
                         }
 }
