@@ -1327,6 +1327,32 @@ class Solution {
         return res == Integer.MAX_VALUE ? 0 : res;
     }
 }
+class Solution {
+    public boolean stoneGameIX(int[] stones) {
+        int c0 = 0, c1 = 0, c2 = 0;
+
+        // Count stones by remainder when divided by 3
+        for (int stone : stones) {
+            int rem = stone % 3;
+
+            if (rem == 0) {
+                c0++;
+            } else if (rem == 1) {
+                c1++;
+            } else {
+                c2++;
+            }
+        }
+
+        // If count of remainder-0 stones is even
+        if (c0 % 2 == 0) {
+            return c1 > 0 && c2 > 0;
+        }
+
+        // If count of remainder-0 stones is odd
+        return Math.abs(c1 - c2) > 2;
+    }
+}
 }
                         }
 }
