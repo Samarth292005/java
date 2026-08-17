@@ -1353,6 +1353,36 @@ class Solution {
         return Math.abs(c1 - c2) > 2;
     }
 }
+    class Solution {
+    public int countSymmetricIntegers(int low, int high) {
+        int count = 0;
+
+        for (int x = low; x <= high; x++) {
+            String s = String.valueOf(x);
+            int n = s.length();
+
+            // Odd number of digits can never be symmetric
+            if (n % 2 != 0) {
+                continue;
+            }
+
+            int half = n / 2;
+            int leftSum = 0;
+            int rightSum = 0;
+
+            for (int i = 0; i < half; i++) {
+                leftSum += s.charAt(i) - '0';
+                rightSum += s.charAt(i + half) - '0';
+            }
+
+            if (leftSum == rightSum) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
 }
                         }
 }
