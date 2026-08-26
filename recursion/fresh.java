@@ -18,6 +18,7 @@ class Solution {
         }
     }
 }
+}
 class Solution {
     public int thirdMax(int[] nums) {
         Long first = null;
