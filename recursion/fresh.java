@@ -1,5 +1,61 @@
 package recursion;
 class Solution {
+    public String lexGreaterPermutation(String s, String target) {
+        int n = s.length();
+        int[] freq = new int[26];
+
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
+        }
+
+        StringBuilder prefix = new StringBuilder();
+        int i = 0;
+
+        // Match target as long as possible
+        while (i < n && freq[target.charAt(i) - 'a'] > 0) {
+            freq[target.charAt(i) - 'a']--;
+            prefix.append(target.charAt(i));
+            i++;
+        }
+
+        // Start from the last valid position
+        int start = Math.min(i, n - 1);
+
+        for (int pos = start; pos >= 0; pos--) {
+
+            // Restore target[pos] if it was part of the matched prefix
+            if (pos < i) {
+                freq[target.charAt(pos) - 'a']++;
+            }
+
+            // Find smallest available character > target[pos]
+            for (char c = (char)(target.charAt(pos) + 1); c <= 'z'; c++) {
+
+                if (freq[c - 'a'] > 0) {
+
+                    StringBuilder result =
+                        new StringBuilder(prefix.substring(0, pos));
+
+                    result.append(c);
+                    freq[c - 'a']--;
+
+                    // Add remaining characters in sorted order
+                    for (char x = 'a'; x <= 'z'; x++) {
+                        while (freq[x - 'a'] > 0) {
+                            result.append(x);
+                            freq[x - 'a']--;
+                        }
+                    }
+
+                    return result.toString();
+                }
+            }
+        }
+
+        return "";
+    }
+}
+class Solution {
     public int missingMultiple(int[] nums, int k) {
         for (int i = 1; ; i++) {
             int ele = i * k;
