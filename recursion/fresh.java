@@ -1,5 +1,148 @@
 package recursion;
 class Solution {
+
+    public String lexPalindromicPermutation(String s, String target) {
+
+        int n = s.length();
+        int[] freq = new int[26];
+
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        int odd = 0;
+        char mid = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] % 2 == 1) {
+                odd++;
+                mid = (char) ('a' + i);
+            }
+        }
+
+        if (odd > 1) {
+            return "";
+        }
+
+        int[] half = new int[26];
+
+        for (int i = 0; i < 26; i++) {
+            half[i] = freq[i] / 2;
+        }
+
+        int len = n / 2;
+
+        // Case 1: left half exactly equals target's left half
+        // and middle character makes the palindrome greater.
+        if (n % 2 == 1) {
+
+            int[] temp = half.clone();
+            boolean possible = true;
+
+            for (int i = 0; i < len; i++) {
+
+                int c = target.charAt(i) - 'a';
+
+                if (temp[c] == 0) {
+                    possible = false;
+                    break;
+                }
+
+                temp[c]--;
+            }
+
+            if (possible && mid > target.charAt(len)) {
+
+                char[] left = new char[len];
+
+                for (int i = 0; i < len; i++) {
+                    left[i] = target.charAt(i);
+                }
+
+                return makePalindrome(left, mid, n);
+            }
+        }
+
+        // Case 2: Make the left half greater
+        for (int pos = len - 1; pos >= 0; pos--) {
+
+            int[] temp = half.clone();
+            boolean possible = true;
+
+            // Match target before pos
+            for (int i = 0; i < pos; i++) {
+
+                int c = target.charAt(i) - 'a';
+
+                if (temp[c] == 0) {
+                    possible = false;
+                    break;
+                }
+
+                temp[c]--;
+            }
+
+            if (!possible) {
+                continue;
+            }
+
+            int targetChar = target.charAt(pos) - 'a';
+
+            // Choose smallest character greater than target[pos]
+            for (int c = targetChar + 1; c < 26; c++) {
+
+                if (temp[c] > 0) {
+
+                    temp[c]--;
+
+                    char[] left = new char[len];
+
+                    // Copy target prefix
+                    for (int i = 0; i < pos; i++) {
+                        left[i] = target.charAt(i);
+                    }
+
+                    // Bigger character at pos
+                    left[pos] = (char) ('a' + c);
+
+                    // Fill rest with smallest characters
+                    int index = pos + 1;
+
+                    for (int x = 0; x < 26; x++) {
+                        while (temp[x] > 0) {
+                            left[index++] = (char) ('a' + x);
+                            temp[x]--;
+                        }
+                    }
+
+                    return makePalindrome(left, mid, n);
+                }
+            }
+        }
+
+        return "";
+    }
+
+    private String makePalindrome(char[] left, char mid, int n) {
+
+        StringBuilder ans = new StringBuilder();
+
+        for (char c : left) {
+            ans.append(c);
+        }
+
+        if (n % 2 == 1) {
+            ans.append(mid);
+        }
+
+        for (int i = left.length - 1; i >= 0; i--) {
+            ans.append(left[i]);
+        }
+
+        return ans.toString();
+    }
+}
+class Solution {
     public String lexGreaterPermutation(String s, String target) {
         int n = s.length();
         int[] freq = new int[26];
