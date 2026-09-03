@@ -1,4 +1,23 @@
 class Solution {
+
+    import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] numbers = {5, 2, 9, 1, 3};
+        Arrays.sort(numbers);
+        
+        // Output: [1, 2, 3, 5, 9]
+        System.out.println(Arrays.toString(numbers)); 
+        
+        String[] fruits = {"Orange", "Apple", "Banana"};
+        Arrays.sort(fruits);
+        
+        // Output: [Apple, Banana, Orange]
+        System.out.println(Arrays.toString(fruits));
+    }
+}
+
     public int minimumDeletions(int[] nums) {
         int n = nums.length;
 
